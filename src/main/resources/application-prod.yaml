@@ -1,0 +1,12 @@
+spring:
+
+  datasource:
+    tomcat:
+      driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/hes_fintech
+    username: postgres
+    password: root
+
+  liquibase:
+    change-log: classpath:db/changelog/master-changelog.yaml
+    contexts: ddl

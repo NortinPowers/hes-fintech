@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-roles-data
+      author: nortin
+      context: dml
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: 'ROLE_ADMIN'
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: 'ROLE_USER'
