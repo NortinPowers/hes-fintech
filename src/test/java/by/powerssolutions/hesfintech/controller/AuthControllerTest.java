@@ -68,7 +68,7 @@ class AuthControllerTest {
         private final JwtRequest jwtRequest;
 
         {
-            url = "/auth";
+            url = "/api/auth";
             jwtRequest = new JwtRequest();
             jwtRequest.setUsername("user");
             jwtRequest.setPassword("password");
@@ -232,7 +232,7 @@ class AuthControllerTest {
         private final UserRegistrationDto userRegistrationDto;
 
         {
-            url = "/auth/registration";
+            url = "/api/auth/registration";
             userRegistrationDto = new UserRegistrationDto();
             userRegistrationDto.setUsername("user");
             userRegistrationDto.setPassword("password");

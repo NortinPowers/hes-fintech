@@ -122,6 +122,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<BaseResponse> createUserAccount(String username) {
         Optional<Account> accountOptional = repository.findByUsername(username);
         if (accountOptional.isEmpty()) {
