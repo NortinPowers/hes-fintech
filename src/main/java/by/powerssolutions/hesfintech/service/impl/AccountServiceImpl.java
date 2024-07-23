@@ -17,6 +17,8 @@ import by.powerssolutions.hesfintech.dto.response.AccountResponseDto;
 import by.powerssolutions.hesfintech.dto.response.AccountShortResponseDto;
 import by.powerssolutions.hesfintech.exception.CustomAccountExistException;
 import by.powerssolutions.hesfintech.exception.CustomEntityNotFoundException;
+import by.powerssolutions.hesfintech.exception.CustomIncorrectInputException;
+import by.powerssolutions.hesfintech.exception.CustomNoContentException;
 import by.powerssolutions.hesfintech.mapper.AccountMapper;
 import by.powerssolutions.hesfintech.model.BaseResponse;
 import by.powerssolutions.hesfintech.repository.AccountRepository;
@@ -40,6 +42,13 @@ public class AccountServiceImpl implements AccountService {
     private final AccountMapper mapper;
     private final UserService userService;
 
+    /**
+     * Возвращает страницу содержащую список счетов пользователей в зависимости от переданного параметра.
+     *
+     * @param pageable Объект определяющий номер страницы и размер списка счетов.
+     * @return {@link ResponseEntity} с Page объектов {@link AccountResponseDto}.
+     * @throws CustomNoContentException Если список счетов пуст.
+     */
     @Override
     public Page<AccountResponseDto> getAll(Pageable pageable) {
         Page<AccountResponseDto> newsPage = repository.findAll(pageable)
@@ -48,6 +57,13 @@ public class AccountServiceImpl implements AccountService {
         return newsPage;
     }
 
+    /**
+     * Блокирует счет пользователя по идентификатору.
+     *
+     * @param id Идентификатор счета пользователя.
+     * @return Ответ с сообщением об успешной блокировки счета пользователя.
+     * @throws CustomEntityNotFoundException Если счет с указанным идентификатором не найден.
+     */
     @Override
     @Transactional
     public ResponseEntity<BaseResponse> blockAccount(Long id) {
@@ -61,6 +77,13 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    /**
+     * Активирует счет пользователя по идентификатору.
+     *
+     * @param id Идентификатор счета пользователя.
+     * @return Ответ с сообщением об успешной активации счета пользователя.
+     * @throws CustomEntityNotFoundException Если счет с указанным идентификатором не найден.
+     */
     @Override
     @Transactional
     public ResponseEntity<BaseResponse> activateAccount(Long id) {
@@ -74,6 +97,12 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    /**
+     * Возвращает информацию о счета пользователя.
+     *
+     * @return Ответ содержащий информацию о счете пользователя.
+     * @throws CustomEntityNotFoundException Если счет с указанным идентификатором не найден.
+     */
     @Override
     public ResponseEntity<AccountShortResponseDto> getAccountByUsername(String username) {
         Optional<Account> accountOptional = repository.findByUsername(username);
@@ -85,6 +114,15 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    /**
+     * Пополняет счет пользователя на указанную суммы.
+     *
+     * @param username Имя пользователя.
+     * @param amount   Сумма пополнения счета.
+     * @return Ответ с сообщением об успешном пополнении счета и текущий баланс.
+     * @throws CustomEntityNotFoundException Если счет с указанным идентификатором не найден.
+     * @throws CustomIncorrectInputException Если передана отрицательная сумма.
+     */
     @Override
     @Transactional
     public ResponseEntity<BaseResponse> refillAccountByUsername(String username, BigDecimal amount) {
@@ -101,6 +139,15 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    /**
+     * Снимает средства со счета пользователя на указанную суммы.
+     *
+     * @param username Имя пользователя.
+     * @param amount   Сумма снятия счета.
+     * @return Ответ с сообщением об успешном снятии со счета либо недостатке средств для снятия указанной суммы и текущий баланс.
+     * @throws CustomEntityNotFoundException Если счет с указанным идентификатором не найден.
+     * @throws CustomIncorrectInputException Если передана отрицательная сумма.
+     */
     @Override
     @Transactional
     public ResponseEntity<BaseResponse> withdrawAccountByUsername(String username, BigDecimal amount) {
@@ -121,6 +168,13 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    /**
+     * Создает для пользователя новый счет, если у него еще нет открытого счета.
+     *
+     * @param username Имя пользователя.
+     * @return Ответ с сообщением об успешном открытии счета.
+     * @throws CustomAccountExistException Если e пользователя уже открыт счет.
+     */
     @Override
     @Transactional
     public ResponseEntity<BaseResponse> createUserAccount(String username) {

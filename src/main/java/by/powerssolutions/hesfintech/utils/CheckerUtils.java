@@ -23,6 +23,11 @@ public class CheckerUtils {
         }
     }
 
+    /**
+     * Проверяет, что переданная сумма является положительным числом.
+     *
+     * @param amount Сумма передаваемая для проверки.
+     */
     public static void checkAmount(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw CustomIncorrectInputException.of(amount);

@@ -39,6 +39,12 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    /**
+     * Получает определенную страницу со списком новостей определенного размера из всех счетов пользователя.
+     *
+     * @param pageable Объект определяющий номер страницы и размер списка счетов.
+     * @return {@link ResponseEntity} с Page объектов {@link AccountResponseDto}.
+     */
     @GetMapping
     @Operation(
             summary = "Retrieves a page of accounts from the list of all accounts depending on the page",
@@ -49,13 +55,18 @@ public class AccountController {
             @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = AccountResponseDto.class)), mediaType = APPLICATION_JSON_VALUE)}),
             @ApiResponse(responseCode = "410", content = {@Content(schema = @Schema(implementation = ExceptionResponse.class), mediaType = APPLICATION_JSON_VALUE)}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema(implementation = ExceptionResponse.class), mediaType = APPLICATION_JSON_VALUE)})})
-
     public ResponseEntity<Page<AccountResponseDto>> getAll(@Parameter(name = "Pageable parameters", example = "page=0&size=15&sort=created,asc")
                                                            @PageableDefault(size = 15)
                                                            @ParameterObject Pageable pageable) {
         return ResponseEntity.ok(accountService.getAll(pageable));
     }
 
+    /**
+     * Блокирует счет пользователя по идентификатору.
+     *
+     * @param id Идентификатор счета пользователя.
+     * @return Ответ с сообщением об успешной блокировки счета пользователя.
+     */
     @PatchMapping("/block/{id}")
     @Operation(
             summary = "Blocks the user's account",
@@ -71,6 +82,12 @@ public class AccountController {
         return accountService.blockAccount(id);
     }
 
+    /**
+     * Активирует счет пользователя по идентификатору.
+     *
+     * @param id Идентификатор счета пользователя.
+     * @return Ответ с сообщением об успешной активации счета пользователя.
+     */
     @PatchMapping("/activate/{id}")
     @Operation(
             summary = "Activates the user's account",

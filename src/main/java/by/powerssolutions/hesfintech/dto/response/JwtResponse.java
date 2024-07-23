@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Access token")
 public class JwtResponse {
 
     @Schema(description = "Jwt-token", example = "XXX.YYYY.ZZZZ")

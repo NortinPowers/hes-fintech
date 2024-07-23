@@ -7,6 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
+    /**
+     * Ищет счет пользователя по его имени.
+     *
+     * @param username Имя пользователя для поиска.
+     * @return Объект {@link Optional<Account>}, содержащий счет пользователя или пустой, если счет не найден.
+     */
     @Query("SELECT a FROM Account a JOIN a.user u WHERE u.username = :username")
     Optional<Account> findByUsername(String username);
 }

@@ -36,6 +36,11 @@ public class UserController {
 
     private final AccountService accountService;
 
+    /**
+     * Возвращает информацию о счете пользователя.
+     *
+     * @return Ответ содержащий информацию о счета пользователя.
+     */
     @GetMapping
     @Operation(
             summary = "Returns the user's account",
@@ -50,6 +55,12 @@ public class UserController {
         return accountService.getAccountByUsername(getUsername());
     }
 
+    /**
+     * Пополняет счет пользователя на указанную суммы.
+     *
+     * @param amount Сумма пополнения счета.
+     * @return Ответ с сообщением об успешном пополнении счета и текущий баланс.
+     */
     @PatchMapping("/refill/{amount}")
     @Operation(
             summary = "Top up user account",
@@ -65,6 +76,12 @@ public class UserController {
         return accountService.refillAccountByUsername(getUsername(), amount);
     }
 
+    /**
+     * Снимает средства со счета пользователя на указанную суммы.
+     *
+     * @param amount Сумма снятия счета.
+     * @return Ответ с сообщением об успешном снятии со счета либо недостатке средств для снятия указанной суммы и текущий баланс.
+     */
     @PatchMapping("/withdraw/{amount}")
     @Operation(
             summary = "Withdraws money from the user's account",
@@ -80,6 +97,11 @@ public class UserController {
         return accountService.withdrawAccountByUsername(getUsername(), amount);
     }
 
+    /**
+     * Создает для пользователя новый счет, если у него еще нет открытого счета.
+     *
+     * @return Ответ с сообщением об успешном открытии счета.
+     */
     @Operation(
             summary = "Creates an account for the user",
             description = "Creates an account for the user. Access is restricted. Returns a message about the successful creation of an account or informs that an account already exists for the user",

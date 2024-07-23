@@ -68,7 +68,13 @@ public class ResponseUtils {
                 .toList();
     }
 
-    public static String setBalanceDisplay(BigDecimal updatedBalance) {
-        return String.valueOf(updatedBalance.setScale(2, RoundingMode.HALF_EVEN));
+    /**
+     * Округляет значение для удобства визуального считывания.
+     *
+     * @param value Передаваемое значение.
+     * @return Округленное переданное значение в формате строки.
+     */
+    public static String setBalanceDisplay(BigDecimal value) {
+        return String.valueOf(value.setScale(2, RoundingMode.HALF_EVEN));
     }
 }
