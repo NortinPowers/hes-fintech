@@ -21,4 +21,6 @@ public interface AccountService {
     ResponseEntity<BaseResponse> refillAccountByUsername(String username, BigDecimal amount);
 
     ResponseEntity<BaseResponse> withdrawAccountByUsername(String username, BigDecimal amount);
+
+    ResponseEntity<BaseResponse> createUserAccount(String username);
 }

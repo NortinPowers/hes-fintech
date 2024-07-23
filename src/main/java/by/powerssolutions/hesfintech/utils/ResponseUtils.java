@@ -18,6 +18,7 @@ public class ResponseUtils {
     public static final String SUCCESS_ACCOUNT_REFILL_MESSAGE = "The account has been replenished, the current balance is %s";
     public static final String WITHDRAWAL_ERROR_MESSAGE = "There are not enough funds in the account. The current balance is %s";
     public static final String SUCCESS_ACCOUNT_WITHDRAW_MESSAGE = "Funds have been successfully withdrawn from the account, the balance is %s";
+    public static final String SUCCESS_ACCOUNT_CREATION_MESSAGE = "The account for the user %s has been successfully created";
     public static final String BAD_CREDENTIALS_EXCEPTION_MESSAGE = "Incorrect username and password";
     public static final String METHOD_ARGUMENT_NOT_VALID_EXCEPTION_MESSAGE = "The transmitted data did not pass verification";
     public static final String DATA_SOURCE_LOOKUP_FAILURE_EXCEPTION_MESSAGE = "Data source could not be obtained";

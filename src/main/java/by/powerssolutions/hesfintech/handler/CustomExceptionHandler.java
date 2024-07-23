@@ -10,7 +10,9 @@ import static by.powerssolutions.hesfintech.utils.ResponseUtils.METHOD_ARGUMENT_
 import static by.powerssolutions.hesfintech.utils.ResponseUtils.getErrorsValidationResponse;
 import static by.powerssolutions.hesfintech.utils.ResponseUtils.getExceptionResponse;
 
+import by.powerssolutions.hesfintech.exception.CustomAccountExistException;
 import by.powerssolutions.hesfintech.exception.CustomEntityNotFoundException;
+import by.powerssolutions.hesfintech.exception.CustomIncorrectInputException;
 import by.powerssolutions.hesfintech.model.BaseResponse;
 import by.powerssolutions.hesfintech.model.ErrorValidationResponse;
 import by.powerssolutions.hesfintech.model.ExceptionResponse;
@@ -60,6 +62,38 @@ public class CustomExceptionHandler {
                 HttpStatus.BAD_REQUEST,
                 getErrorsValidationResponse(exception),
                 METHOD_ARGUMENT_NOT_VALID_EXCEPTION_MESSAGE
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Обрабатывает исключение {@link CustomIncorrectInputException} и возвращает соответствующий ResponseEntity с {@link BaseResponse}.
+     *
+     * @param exception Исключение {@link CustomIncorrectInputException}, которое требуется обработать.
+     * @return ResponseEntity с {@link BaseResponse} и кодом состояния HTTP BAD_REQUEST.
+     */
+    @ExceptionHandler(CustomIncorrectInputException.class)
+    public ResponseEntity<BaseResponse> handleException(CustomIncorrectInputException exception) {
+        ExceptionResponse response = getExceptionResponse(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                exception
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Обрабатывает исключение {@link CustomAccountExistException} и возвращает соответствующий ResponseEntity с {@link BaseResponse}.
+     *
+     * @param exception Исключение {@link CustomAccountExistException}, которое требуется обработать.
+     * @return ResponseEntity с {@link BaseResponse} и кодом состояния HTTP BAD_REQUEST.
+     */
+    @ExceptionHandler(CustomAccountExistException.class)
+    public ResponseEntity<BaseResponse> handleException(CustomAccountExistException exception) {
+        ExceptionResponse response = getExceptionResponse(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                exception
         );
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
