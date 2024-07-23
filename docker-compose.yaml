@@ -1,0 +1,35 @@
+version: '3'
+
+volumes:
+  db-data-app:
+    driver: local
+
+services:
+
+  app:
+    build: .
+    container_name: app
+    depends_on:
+      - db_hes_fintech
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_hes_fintech:5432/hes_fintech
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://app:8000/health || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    ports:
+      - '8080:8080'
+
+  db_hes_fintech:
+    image: postgres:15.1-alpine
+    container_name: db_hes_fintech
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=hes_fintech
+    volumes:
+      - ./db-init:/docker-entrypoint-initdbhes.d
+      - db-data-app:/var/lib/postgresql/data
