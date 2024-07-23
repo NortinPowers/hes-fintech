@@ -9,6 +9,7 @@ import static by.powerssolutions.hesfintech.utils.ResponseUtils.SUCCESS_ACCOUNT_
 import static by.powerssolutions.hesfintech.utils.ResponseUtils.SUCCESS_ACCOUNT_WITHDRAW_MESSAGE;
 import static by.powerssolutions.hesfintech.utils.ResponseUtils.WITHDRAWAL_ERROR_MESSAGE;
 import static by.powerssolutions.hesfintech.utils.ResponseUtils.getSuccessResponse;
+import static by.powerssolutions.hesfintech.utils.ResponseUtils.setBalanceDisplay;
 
 import by.powerssolutions.hesfintech.domain.Account;
 import by.powerssolutions.hesfintech.domain.User;
@@ -22,7 +23,6 @@ import by.powerssolutions.hesfintech.repository.AccountRepository;
 import by.powerssolutions.hesfintech.service.AccountService;
 import by.powerssolutions.hesfintech.service.UserService;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -133,9 +133,5 @@ public class AccountServiceImpl implements AccountService {
         } else {
             throw CustomAccountExistException.of(username);
         }
-    }
-
-    private String setBalanceDisplay(BigDecimal updatedBalance) {
-        return String.valueOf(updatedBalance.setScale(2, RoundingMode.HALF_EVEN));
     }
 }

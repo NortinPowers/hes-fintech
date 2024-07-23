@@ -64,6 +64,6 @@ springBoot {
 	mainClass = 'by.powerssolutions.hesfintech.HesFintechApplication'
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
 }

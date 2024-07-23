@@ -13,6 +13,7 @@ import static by.powerssolutions.hesfintech.utils.ResponseUtils.getExceptionResp
 import by.powerssolutions.hesfintech.exception.CustomAccountExistException;
 import by.powerssolutions.hesfintech.exception.CustomEntityNotFoundException;
 import by.powerssolutions.hesfintech.exception.CustomIncorrectInputException;
+import by.powerssolutions.hesfintech.exception.CustomNoContentException;
 import by.powerssolutions.hesfintech.model.BaseResponse;
 import by.powerssolutions.hesfintech.model.ErrorValidationResponse;
 import by.powerssolutions.hesfintech.model.ExceptionResponse;
@@ -96,6 +97,22 @@ public class CustomExceptionHandler {
                 exception
         );
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Обрабатывает исключение {@link CustomNoContentException} и возвращает соответствующий ResponseEntity с {@link BaseResponse}.
+     *
+     * @param exception Исключение {@link CustomNoContentException}, которое требуется обработать.
+     * @return ResponseEntity с {@link BaseResponse} и кодом состояния HTTP GONE.
+     */
+    @ExceptionHandler(CustomNoContentException.class)
+    public ResponseEntity<BaseResponse> handleException(CustomNoContentException exception) {
+        ExceptionResponse response = getExceptionResponse(
+                HttpStatus.GONE,
+                exception.getMessage(),
+                exception
+        );
+        return new ResponseEntity<>(response, HttpStatus.GONE);
     }
 
     /**

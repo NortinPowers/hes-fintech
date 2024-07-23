@@ -2,6 +2,8 @@ package by.powerssolutions.hesfintech.utils;
 
 import by.powerssolutions.hesfintech.model.ExceptionResponse;
 import by.powerssolutions.hesfintech.model.SuccessResponse;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -64,5 +66,9 @@ public class ResponseUtils {
         return exception.getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .toList();
+    }
+
+    public static String setBalanceDisplay(BigDecimal updatedBalance) {
+        return String.valueOf(updatedBalance.setScale(2, RoundingMode.HALF_EVEN));
     }
 }
