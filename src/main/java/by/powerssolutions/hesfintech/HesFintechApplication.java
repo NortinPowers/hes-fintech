@@ -1,4 +1,4 @@
-package by.powerssolutions.hesfintech.HesFintech;
+package by.powerssolutions.hesfintech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HesFintechApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HesFintechApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HesFintechApplication.class, args);
+    }
 
 }
