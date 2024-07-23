@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users-data
+      author: nortin
+      context: dml
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'admin'
+              - column:
+                  name: password
+                  value: '$2a$10$CQLbS9T5JNdoB3WJZctXT.Uwp1N/MlQJE7BOXmjxwtG1AbL1tG.5u'
+              - column:
+                  name: role_id
+                  value: '1'
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'clientA'
+              - column:
+                  name: password
+                  value: '$2a$10$CQLbS9T5JNdoB3WJZctXT.Uwp1N/MlQJE7BOXmjxwtG1AbL1tG.5u'
+              - column:
+                  name: role_id
+                  value: '2'
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'clientB'
+              - column:
+                  name: password
+                  value: '$2a$10$CQLbS9T5JNdoB3WJZctXT.Uwp1N/MlQJE7BOXmjxwtG1AbL1tG.5u'
+              - column:
+                  name: role_id
+                  value: '2'

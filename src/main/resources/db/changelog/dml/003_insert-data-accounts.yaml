@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-accounts-data
+      author: nortin
+      context: dml
+      changes:
+        - insert:
+            tableName: accounts
+            columns:
+              - column:
+                  name: balance
+                  value: '100'
+              - column:
+                  name: status
+                  value: 'true'
+              - column:
+                  name: user_id
+                  value: '2'
+        - insert:
+            tableName: accounts
+            columns:
+              - column:
+                  name: balance
+                  value: '50'
+              - column:
+                  name: status
+                  value: 'true'
+              - column:
+                  name: user_id
+                  value: '3'
